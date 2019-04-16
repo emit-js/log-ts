@@ -13,17 +13,17 @@ declare module "@emit-js/emit" {
       level: string,
       name: string,
       ...value: any[]
-    )
+    ): void
 
-    logLevel(id: EventIdType, level: string)
+    logLevel(id: EventIdType, level: string): void
   }
 }
 
 export class Log {
   private defaultLevel: string
   private eventLevels: Record<string, string>
-  private levelEmojis: object
-  private levelSpaces: object
+  private levelEmojis: Record<string, string>
+  private levelSpaces: Record<string, string>
   private levels: string[]
 
   public constructor() {
