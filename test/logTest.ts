@@ -13,7 +13,7 @@ test("log", (): void => {
   emit.log(null, "debug")
   emit.log("p1", "error")
   emit.log(["p1", "p2"], "info", "hi")
-  emit.logEvent("test", "trace", "event", "hi")
+  emit.logEvent(["event", "test"], "trace", "hi")
   emit.log(null, "warn", "hi")
   emit.log(null, "anything")
   emit.log(null)

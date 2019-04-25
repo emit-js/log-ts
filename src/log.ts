@@ -11,7 +11,6 @@ declare module "@emit-js/emit" {
     logEvent(
       id: EventIdType,
       level: string,
-      name: string,
       ...value: any[]
     ): void
 
@@ -61,7 +60,7 @@ export class Log {
       value.unshift(level)
       level = "debug"
     }
-    e.emit.logEvent(e.id, level, e.name, ...value)
+    e.emit.logEvent([e.name, e.id], level, ...value)
   }
 
   public logAny(
@@ -74,15 +73,15 @@ export class Log {
     const level = this.eventLevels[e.name] ?
       this.eventLevels[e.name] :
       "debug"
-    e.emit.logEvent(e.id, level, e.name, ...value)
+    e.emit.logEvent([e.name, e.id], level, ...value)
   }
 
   public logEvent(
     e: EventType,
     level: string,
-    name: string,
     ...value: any[]
   ): void {
+    const [ name, ...id ] = e.id
     level = this.isLevel(level) ? level : "info"
     if (
       this.levels.indexOf(level) <
@@ -93,7 +92,7 @@ export class Log {
     // eslint-disable-next-line no-console
     console.log(
       this.levelEmojis[level] + this.levelSpaces[level],
-      `${name}(${e.id.join(", ")})`,
+      `${name}(${id.join(", ")})`,
       ...value
     )
   }
