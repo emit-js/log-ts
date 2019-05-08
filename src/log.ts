@@ -119,3 +119,5 @@ export function log(emit: Emit): void {
   emit.any("logEvent", log.logEvent.bind(log))
   emit.any("logLevel", log.logLevel.bind(log))
 }
+
+export const listen = log
