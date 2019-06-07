@@ -116,9 +116,11 @@ export class Log {
       if (typeof v === "object") {
         const obj = {}
         for (const k in v) {
-          const keys = Object.keys(v[k])
-          if (keys.length > 9) {
-            obj[k] = `{ ${keys.join(", ")} }`
+          if (typeof v[k] === "object") {
+            const keys = Object.keys(v[k])
+            if (keys.length > 9) {
+              obj[k] = `{ ${keys.join(", ")} }`
+            }
           }
         }
         return obj
