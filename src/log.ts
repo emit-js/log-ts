@@ -89,6 +89,15 @@ export class Log {
     ) {
       return
     }
+    value = value.map((v: any): any => {
+      if (typeof v === "object") {
+        const keys = Object.keys(v)
+        if (keys.length > 9) {
+          return `{ ${keys.join(", ")} }`
+        }
+      }
+      return v
+    })
     // eslint-disable-next-line no-console
     console.log(
       this.levelEmojis[level] + this.levelSpaces[level],
