@@ -114,7 +114,7 @@ export class Log {
   private summarize(arr: any[]): string[] {
     return arr.map((v: any): any => {
       const type = typeof v
-      if (type === "object") {
+      if (type === "object" && type !== null) {
         const types = Object.keys(v).map(
           (k: string): string => `${k}: [${typeof v[k]}]`
         )
