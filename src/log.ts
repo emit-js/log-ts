@@ -89,20 +89,11 @@ export class Log {
     ) {
       return
     }
-    value = value.map((v: any): any => {
-      if (typeof v === "object") {
-        const keys = Object.keys(v)
-        if (keys.length > 9) {
-          return `{ ${keys.join(", ")} }`
-        }
-      }
-      return v
-    })
     // eslint-disable-next-line no-console
     console.log(
       this.levelEmojis[level] + this.levelSpaces[level],
       `${name}(${id.join(", ")})`,
-      ...value
+      ...this.summarize(value)
     )
   }
 
@@ -118,6 +109,22 @@ export class Log {
 
   private isLevel(level: string): boolean {
     return this.levels.indexOf(level) > -1
+  }
+
+  private summarize(arr: any[]): any[] {
+    return arr.map((v: any): any => {
+      if (typeof v === "object") {
+        const obj = {}
+        for (const k in v) {
+          const keys = Object.keys(v[k])
+          if (keys.length > 9) {
+            obj[k] = `{ ${keys.join(", ")} }`
+          }
+        }
+        return obj
+      }
+      return v
+    })
   }
 }
 
