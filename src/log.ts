@@ -111,21 +111,19 @@ export class Log {
     return this.levels.indexOf(level) > -1
   }
 
-  private summarize(arr: any[]): any[] {
+  private summarize(arr: any[]): string[] {
     return arr.map((v: any): any => {
-      if (typeof v === "object") {
-        const obj = {}
-        for (const k in v) {
-          if (typeof v[k] === "object") {
-            const keys = Object.keys(v[k])
-            if (keys.length > 9) {
-              obj[k] = `{ ${keys.join(", ")} }`
-            }
-          }
-        }
-        return obj
+      const type = typeof v
+      if (type === "object") {
+        const types = Object.keys(v).map(
+          (k: string): string => `${k}: [${typeof v[k]}]`
+        )
+        return `{ ${types.join(", ")} }`
+      } else if (type === "string") {
+        return v
+      } else {
+        return type
       }
-      return v
     })
   }
 }
