@@ -81,7 +81,7 @@ export class Log {
     level: string,
     ...value: any[]
   ): void {
-    const [ name, ...id ] = e.id
+    const [ name, ...id ] = e.id.slice(0, -2)
     level = this.isLevel(level) ? level : "info"
     if (
       this.levels.indexOf(level) <
